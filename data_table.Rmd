@@ -1,0 +1,44 @@
+---
+title: "Interactive Table"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = F,
+                      warning = F,
+                      message = F,
+                      error = F
+                    )
+```
+
+```{r}
+library(tidyverse)
+library(DT)
+
+df = openxlsx::read.xlsx("data/data_resources.xlsx")
+names(df) = gsub("\\.", " ",names(df))
+
+names(df) =  sprintf('<div style="transform:rotate(-70deg);margin-top:100px;">%s</div>',
+                     names(df))
+                     
+datatable(
+  df,
+  escape = F,
+  options = list(
+    autoWidth = T,
+  columnDefs = list(list(width = '20px',
+  className = 'dt-center', targets = 1
+  )),
+  pageLength = 100,
+  lengthMenu = NULL
+  ),
+  rownames = F
+  )
+      
+```
+
+
+* Data release lag is about 6 months or less.  ** Data release; 5=every five years; 3=every 3 years; a.=annually; b.=biannually; q.=quarterly; m.=monthly; w=weekly, v.=varies;  †=discontinued.
+Inclusion on this list is not an endorsement by the U.S. SBA or the Office of Advocacy. For industry NAICS Codes, see https://www.census.gov/eos/www/naics/.
+
+Source: U.S. Small Business Administration, Office of Advocacy.
